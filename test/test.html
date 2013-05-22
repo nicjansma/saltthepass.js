@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>SaltThePass.js Test Suite</title>
+    <script src="../deps/nodeunit/nodeunit.js"></script>
+    <script src="../dist/saltthepass.withcryptojs.min.js"></script>
+    <link rel="stylesheet" href="../deps/nodeunit/nodeunit.css" type="text/css" media="screen" />
+    <script>
+      var _requires = {
+          "../src/saltthepass": window.SaltThePass
+      };
+      this.require = function (name) { return _requires[name]; };
+      this.exports = {};
+    </script>
+    <script src="test.js"></script>
+  </head>
+  <body>
+    <h1 id="nodeunit-header">SaltThePass.js Test Suite</h1>
+    <script>
+        // run tests
+        nodeunit.run({'test': this.exports});
+    </script>
+  </body>
+</html>
