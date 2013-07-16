@@ -3,7 +3,7 @@
     "description": "SaltThePass.com algorithm",
     "main": "./src/saltthepass",
     "author": "Nic Jansma",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "repository" : {
         "type" : "git",
         "url" : "http://github.com/nicjansma/saltthepass.js.git"
@@ -24,7 +24,9 @@
         "grunt": "~0.4.0",
         "grunt-contrib-jshint": ">0.0.0",
         "grunt-contrib-nodeunit": ">0.0.0",
-        "grunt-contrib-uglify": ">0.0.0",
-        "crypto-js": "~3.1.0"
+        "grunt-contrib-uglify": ">0.0.0"
+    },
+    "dependencies": {
+        "crypto-js": ">= 3.1.2-1"
     }
 }

@@ -9,9 +9,11 @@ module.exports = function(grunt) {
             build: {
                 files: {
                     'dist/<%= pkg.name %>.min.js': [
-                        'src/<%= pkg.name %>.js'
+                        'src/utils.js',
+                        'src/domainnamerule.js',
+                        'src/saltthepass.js'
                     ],
-                    'dist/<%= pkg.name %>.withcryptojs.min.js': [
+                    'dist/<%= pkg.name %>.withdeps.min.js': [
                         'deps/crypto-js/core.js',
                         'deps/crypto-js/x64-core.js',
                         'deps/crypto-js/sha1.js',
@@ -20,7 +22,9 @@ module.exports = function(grunt) {
                         'deps/crypto-js/md5.js',
                         'deps/crypto-js/ripemd160.js',
                         'deps/crypto-js/enc-base64.js',
-                        'src/<%= pkg.name %>.js'
+                        'src/utils.js',
+                        'src/domainnamerule.js',
+                        'src/saltthepass.js'
                     ]
                 }
             }
@@ -28,25 +32,25 @@ module.exports = function(grunt) {
         jshint: {
             files: [ 'src/**/*.js', 'test/**/*.js' ],
             options: {
-                bitwise: true, 
-                camelcase: true, 
-                curly: true, 
-                eqeqeq: true, 
-                forin: true, 
+                bitwise: true,
+                camelcase: true,
+                curly: true,
+                eqeqeq: true,
+                forin: true,
                 immed: true,
-                indent: 4, 
-                latedef: true, 
-                newcap: true, 
-                noempty: true, 
-                nonew: true, 
-                quotmark: true, 
+                indent: 4,
+                latedef: true,
+                newcap: true,
+                noempty: true,
+                nonew: true,
+                quotmark: true,
                 jquery: true,
-                undef: true, 
-                unused: true, 
-                strict: true, 
-                trailing: true, 
-                browser: true, 
-                node: true, 
+                undef: true,
+                unused: true,
+                strict: true,
+                trailing: true,
+                browser: true,
+                node: true,
                 white: false,
                 globals: {
                     define: true,

@@ -6,12 +6,16 @@
     //
     var HASH_COUNT = 5;
 
+    // load via src dir if in node, or regularly if via browser
     var saltthepass = require('../src/saltthepass');
+    if (!saltthepass) {
+        saltthepass = require('saltthepass');
+    }
 
     //
     // test group
     //
-    var testcases = exports.saltthepass = {};
+    var testcases = exports.SaltThePass = {};
 
     //
     // getHashes

@@ -1,7 +1,5 @@
-/* global CryptoJS */
-
 //
-// saltthepass.js v0.1.0
+// SaltThePass
 //
 // Copyright 2013 Nic Jansma
 // http://nicj.net
@@ -10,17 +8,59 @@
 //
 // Licensed under the MIT license
 //
-(function() {
+(function (root, factory) {
+    'use strict';
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(
+            [
+                'saltthepass/domainnamerule',
+                'saltthepass/utils',
+                'crypto-js/md5',
+                'crypto-js/sha1',
+                'crypto-js/sha512',
+                'crypto-js/sha3',
+                'crypto-js/ripemd160',
+                'crypto-js/enc-base64'
+            ],
+            factory);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like enviroments that support module.exports,
+        // like Node.
+        module.exports = factory(
+            require('./domainnamerule'),
+            require('./utils'),
+            require('crypto-js/md5'),
+            require('crypto-js/sha1'),
+            require('crypto-js/sha512'),
+            require('crypto-js/sha3'),
+            require('crypto-js/ripemd160'),
+            require('crypto-js/enc-base64'));
+    } else {
+        // Browser globals (root is window)
+        root.SaltThePass = factory(
+            root.DomainNameRule,
+            root.SaltThePassUtils,
+            root.CryptoJS.MD5,
+            root.CryptoJS.SHA1,
+            root.CryptoJS.SHA512,
+            root.CryptoJS.SHA3,
+            root.CryptoJS.RIPEMD160,
+            root.CryptoJS.enc.Base64);
+    }
+}(this, function (DomainNameRule, utils, md5Fn, sha1Fn, sha512Fn, sha3Fn, ripemd160Fn, base64Fn) {
     'use strict';
 
     // Module definition
     var SaltThePass = {};
 
-    // determine root object
-    var root;
-    if (typeof window !== 'undefined') {
-        root = window;
-    }
+    // export DNR
+    SaltThePass.DomainNameRule = DomainNameRule;
+
+    // export utils
+    SaltThePass.standardizeDomain = utils.standardizeDomain;
 
     //
     // Constants
@@ -31,78 +71,26 @@
      */
     var HASHES = {
         'md5': {
-            length: 22
+            length: 22,
+            fn: md5Fn
         },
         'sha1': {
-            length: 27
+            length: 27,
+            fn: sha1Fn
         },
         'sha2': {
-            length: 86
+            length: 86,
+            fn: sha512Fn
         },
         'sha3': {
-            length: 86
+            length: 86,
+            fn: sha3Fn
         },
         'ripemd160': {
-            length: 27
+            length: 27,
+            fn: ripemd160Fn
         }
     };
-
-    //
-    // Members
-    //
-
-    /**
-     * Whether or not CryptoJS has been initialized
-     */
-    var hasInit = false;
-
-    /**
-     * CryptoJS Base64 function (eg. CryptoJS.enc.Base64)
-     */
-    var _base64Fn = null;
-
-    //
-    // Private Functions
-    //
-
-    /**
-     * Privately initializes SaltThePass with the CryptoJS library.
-     *
-     *  @param {function} md5 MD5 function
-     *  @param {function} sha1 SHA1 function
-     *  @param {function} sha512 SHA512 function
-     *  @param {function} sha3 SHA3 function
-     *  @param {function} ripemd160 RIPEMD160 function
-     *  @param {function} base64 Base64 function
-     */
-    function initializeFns(md5, sha1, sha512, sha3, ripemd160, base64) {
-        hasInit = true;
-
-        // setup hashing functions
-        HASHES.md5.fn = md5;
-        HASHES.sha1.fn = sha1;
-        HASHES.sha2.fn = sha512;
-        HASHES.sha3.fn = sha3;
-        HASHES.ripemd160.fn = ripemd160;
-
-        // save Base64 Fn
-        _base64Fn = base64;
-    }
-
-    /**
-     *  Tries to initialize functions from the CryptoJS library
-     */
-    function tryBrowserInitialize() {
-        if (typeof(CryptoJS) !== 'undefined') {
-            initializeFns(
-                CryptoJS.MD5,
-                CryptoJS.SHA1,
-                CryptoJS.SHA512,
-                CryptoJS.SHA3,
-                CryptoJS.RIPEMD160,
-                CryptoJS.enc.Base64);
-        }
-    }
 
     //
     // Public functions
@@ -135,10 +123,6 @@
      * @return {function|undefined} Hash's hashing function
      */
     SaltThePass.getHashFn = function getHashFn(hashName) {
-        if (!hasInit) {
-            tryBrowserInitialize();
-        }
-
         if (!(hashName in HASHES)) {
             return;
         }
@@ -171,10 +155,8 @@
      */
     SaltThePass.hash = function hash(hashName, phrase) {
         // we need to have been initialized first
-        if (_base64Fn === null ||
-            typeof(phrase) === 'undefined' ||
-            !phrase.length ||
-            !hasInit) {
+        if (typeof(phrase) === 'undefined' ||
+            !phrase.length) {
             return;
         }
 
@@ -186,7 +168,7 @@
 
         // hash and base-64 encode
         var hashedPhrase = hashFn(phrase);
-        var base64 = hashedPhrase.toString(_base64Fn);
+        var base64 = hashedPhrase.toString(base64Fn);
 
         // remove trailing ==s from base64
         base64 = base64.replace(/=+$/, '');
@@ -218,56 +200,20 @@
     SaltThePass.saltthepass = function saltthepass(hashName, masterPassword, domainName, domainPhrase) {
         // change any undefineds to ''s
         if (typeof(masterPassword) === 'undefined') {
-            masterPassword= '';
+            masterPassword = '';
         }
 
         if (typeof(domainName) === 'undefined') {
-            domainName= '';
+            domainName = '';
         }
 
         if (typeof(domainPhrase) === 'undefined') {
-            domainPhrase= '';
+            domainPhrase = '';
         }
 
         return this.hash(hashName, masterPassword + domainName + domainPhrase);
     };
 
-    //
-    // If we were loaded via the browser and CryptoJS is already defined, initialize.
-    //
-    tryBrowserInitialize();
-
-    //
-    // Export saltthepass.js to the appropriate location
-    //
-    if (typeof define !== 'undefined' && define.amd) {
-        //
-        // AMD / RequireJS
-        //
-        define([], function () {
-            return SaltThePass;
-        });
-    } else if (typeof module !== 'undefined' && module.exports) {
-        //
-        // Node.js
-        //
-        module.exports = SaltThePass;
-
-        // load crypto-js module
-        if (typeof(require) === 'function') {
-            initializeFns(
-                require('crypto-js/md5'),
-                require('crypto-js/sha1'),
-                require('crypto-js/sha512'),
-                require('crypto-js/sha3'),
-                require('crypto-js/ripemd160'),
-                require('crypto-js/enc-base64')
-            );
-        }
-    } else if (typeof root !== 'undefined') {
-        //
-        // Included directly via a script tag
-        //
-        root.SaltThePass = SaltThePass;
-    }
-}());
+    // export
+    return SaltThePass;
+}));
