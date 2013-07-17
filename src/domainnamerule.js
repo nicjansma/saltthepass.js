@@ -291,7 +291,7 @@
             return;
         }
 
-        return new RegExp(this.regex, 'i');
+        return new RegExp(this.regex);
     };
 
     /**
@@ -307,9 +307,9 @@
         }
 
         if (reverse) {
-            return new RegExp('[^' + this.validregex + ']', 'gi');
+            return new RegExp('[^' + this.validregex + ']', 'g');
         } else {
-            return new RegExp('^[' + this.validregex + ']+$', 'i');
+            return new RegExp('^[' + this.validregex + ']+$');
         }
     };
 

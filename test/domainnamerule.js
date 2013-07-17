@@ -130,7 +130,7 @@
     testcases['.isValid() - validregex'] = function(test) {
         var dnr = new DomainNameRule({
             domain: 'foo.com',
-            validregex: 'A-Z0-9'
+            validregex: 'A-Za-z0-9'
         });
 
         // true
@@ -142,6 +142,34 @@
         test.ok(dnr.isValid('aA9'));
         test.ok(dnr.isValid('aa01asd12e12d'));
         test.ok(dnr.isValid('aA1z091AZfa'));
+
+        // not valid per regex
+        test.ok(!dnr.isValid('a-'));
+        test.ok(!dnr.isValid('a.'));
+        test.ok(!dnr.isValid('a?'));
+        test.ok(!dnr.isValid('-'));
+        test.ok(!dnr.isValid('a-a'));
+
+        test.done();
+    };
+
+    testcases['.isValid() - validregex - case sensitive'] = function(test) {
+        var dnr = new DomainNameRule({
+            domain: 'foo.com',
+            validregex: 'A-Z0-9'
+        });
+
+        // true
+        test.ok(dnr.isValid('A'));
+        test.ok(dnr.isValid('AA'));
+
+        // not valid per case sensitivity
+        test.ok(!dnr.isValid('aA9'));
+        test.ok(!dnr.isValid('aA1z091AZfa'));
+        test.ok(!dnr.isValid('a'));
+        test.ok(!dnr.isValid('aa'));
+        test.ok(!dnr.isValid('a9'));
+        test.ok(!dnr.isValid('aa01asd12e12d'));
 
         // not valid per regex
         test.ok(!dnr.isValid('a-'));
@@ -235,7 +263,7 @@
     testcases['.rewrite() - validregex'] = function(test) {
         var dnr = new DomainNameRule({
             domain: 'foo.com',
-            validregex: 'A-Z0-9'
+            validregex: 'A-Za-z0-9'
         });
 
         // no change - good
@@ -250,4 +278,22 @@
 
         test.done();
     };
-})(exports);
+
+    testcases['.rewrite() - validregex - case sensitivity'] = function(test) {
+        var dnr = new DomainNameRule({
+            domain: 'foo.com',
+            validregex: 'A-Z0-9'
+        });
+
+        // no change - good
+        test.equal('PSS', dnr.rewrite('PaSS'));
+        test.equal('PASS', dnr.rewrite('PASS'));
+        test.equal('PASS01', dnr.rewrite('PASS01'));
+
+        // remove invalid chars
+        test.equal('PASSPASS', dnr.rewrite('PASS-PASS'));
+        test.equal('PASSPASS', dnr.rewrite('PASS?-PASS'));
+        test.equal('PASS', dnr.rewrite('pass?-PASS'));
+
+        test.done();
+    };})(exports);

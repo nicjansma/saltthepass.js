@@ -3,7 +3,7 @@
     "description": "SaltThePass.com algorithm",
     "main": "./src/saltthepass",
     "author": "Nic Jansma",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "repository" : {
         "type" : "git",
         "url" : "http://github.com/nicjansma/saltthepass.js.git"
