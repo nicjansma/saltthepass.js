@@ -64,6 +64,7 @@
         this.required = (typeof(data.required) !== 'undefined') ? data.required : '';
 
         this.regex = data.regex;
+        this.validregex = data.validregex;
     }
 
     /**
@@ -109,6 +110,15 @@
      */
     DomainNameRule.prototype.hasRegex = function() {
         return typeof(this.regex) !== 'undefined';
+    };
+
+    /**
+     * Determines if the domain has a regular expression of valid characters
+     *
+     * @returns {boolean}
+     */
+    DomainNameRule.prototype.hasValidRegex = function() {
+        return typeof(this.validregex) !== 'undefined';
     };
 
     /**
@@ -165,6 +175,10 @@
         }
 
         if (!this.isValidRegex(password)) {
+            return false;
+        }
+
+        if (!this.isValidValidRegex(password)) {
             return false;
         }
 
@@ -251,21 +265,51 @@
     };
 
     /**
+     * Determines if the password passes this rule's valid characters regular expression
+     *
+     * @returns {boolean}
+     */
+    DomainNameRule.prototype.isValidValidRegex = function(password) {
+        if (this.validregex) {
+            var reg = this.getValidRegEx();
+
+            if (!reg.test(password)) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    /**
+     * Gets this rule's regular expression
+     *
+     * @returns {RegExp} Regular expression
+     */
+    DomainNameRule.prototype.getRegEx = function() {
+        if (!this.regex) {
+            return;
+        }
+
+        return new RegExp(this.regex, 'i');
+    };
+
+    /**
      * Gets this rule's regular expression
      *
      * @param {boolean} reverse If set, return an inverse of the regular expression
      *
      * @returns {RegExp} Regular expression
      */
-    DomainNameRule.prototype.getRegEx = function(reverse) {
-        if (!this.regex) {
+    DomainNameRule.prototype.getValidRegEx = function(reverse) {
+        if (!this.validregex) {
             return;
         }
 
         if (reverse) {
-            return new RegExp('[^' + this.regex + ']', 'gi');
+            return new RegExp('[^' + this.validregex + ']', 'gi');
         } else {
-            return new RegExp('^[' + this.regex + ']+$', 'i');
+            return new RegExp('^[' + this.validregex + ']+$', 'i');
         }
     };
 
@@ -295,11 +339,11 @@
             }
         }
 
-        // if we have a regex, remove invalid characters from it
-        if (this.regex) {
-            var reg = this.getRegEx();
+        // if we have a valid characters regex, remove invalid characters from it
+        if (this.validregex) {
+            var reg = this.getValidRegEx();
             if (!reg.test(newPass)) {
-                var nonRegEx = this.getRegEx(true);
+                var nonRegEx = this.getValidRegEx(true);
                 newPass = newPass.replace(nonRegEx, '');
             }
         }

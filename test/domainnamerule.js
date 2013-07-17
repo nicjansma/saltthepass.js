@@ -127,10 +127,10 @@
         test.done();
     };
 
-    testcases['.isValid() - regex'] = function(test) {
+    testcases['.isValid() - validregex'] = function(test) {
         var dnr = new DomainNameRule({
             domain: 'foo.com',
-            regex: 'A-Z0-9'
+            validregex: 'A-Z0-9'
         });
 
         // true
@@ -143,12 +143,40 @@
         test.ok(dnr.isValid('aa01asd12e12d'));
         test.ok(dnr.isValid('aA1z091AZfa'));
 
-        // under minimum - false
+        // not valid per regex
         test.ok(!dnr.isValid('a-'));
         test.ok(!dnr.isValid('a.'));
         test.ok(!dnr.isValid('a?'));
         test.ok(!dnr.isValid('-'));
         test.ok(!dnr.isValid('a-a'));
+
+        test.done();
+    };
+
+    testcases['.isValid() - regex'] = function(test) {
+        var dnr = new DomainNameRule({
+            domain: 'foo.com',
+            regex: '([A-Za-z])+([0-9])+|([0-9])+([A-Za-z])+'
+        });
+
+        // this regex enforces at least one letter and one number
+
+        // true
+        test.ok(dnr.isValid('1a'));
+        test.ok(dnr.isValid('a1'));
+        test.ok(dnr.isValid('1A'));
+        test.ok(dnr.isValid('A1'));
+        test.ok(dnr.isValid('1a1'));
+        test.ok(dnr.isValid('a1a'));
+        test.ok(dnr.isValid('aa01asd12e12d'));
+        test.ok(dnr.isValid('aA1z091AZfa-123123-21=312x-=321=3213-=s21=-3'));
+
+        // does not pass regex
+        test.ok(!dnr.isValid('aa'));
+        test.ok(!dnr.isValid('aA'));
+        test.ok(!dnr.isValid('AAA'));
+        test.ok(!dnr.isValid('1'));
+        test.ok(!dnr.isValid('11122'));
 
         test.done();
     };
@@ -204,10 +232,10 @@
         test.done();
     };
 
-    testcases['.rewrite() - regex'] = function(test) {
+    testcases['.rewrite() - validregex'] = function(test) {
         var dnr = new DomainNameRule({
             domain: 'foo.com',
-            regex: 'A-Z0-9'
+            validregex: 'A-Z0-9'
         });
 
         // no change - good

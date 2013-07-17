@@ -1,6 +1,6 @@
 # saltthepass.js
 
-v0.2.0
+v0.2.1
 
 Copyright 2013 Nic Jansma
 
@@ -244,14 +244,18 @@ Creates a Domain Name Rule.
 __Arguments__
 
 * `data` - Can contain any of the following options:
-	* `domain` - Domain name (eg. `'foo.com'`)
-	* `aliases` - Array of additional domain names that will match (eg. `['a.foo.com', 'b.foo.com']`)
-	* `description` - Description
-	* `min` - Minimum number of characters in the password
-	* `max` - Maximum number of characters in the password
-	* `invalid` - An array of characters that are not allowed in the password (eg. `['!', '_']`)
-	* `required` - An array of characters where one of the characters needs to be in the password (eg. `['-', '!']`)
-	* `regex` - A regular expression of valid characters (eg. `'A-Z0-9'`) (*The regex is run case-insensitively*)
+    * `domain` - Domain name (eg. `'foo.com'`)
+    * `aliases` - Array of additional domain names that will match (eg. `['a.foo.com', 'b.foo.com']`)
+    * `description` - Description
+    * `min` - Minimum number of characters in the password
+    * `max` - Maximum number of characters in the password
+    * `invalid` - An array of characters that are not allowed in the password (eg. `['!', '_']`)
+    * `required` - An array of characters where one of the characters needs to be in the password (eg. `['-', '!']`)
+    * `validregex` - A simplified regular expression that would fit in a character set (eg. `A-Z0-9`, which would fit in
+        `[A-Z0-9]`).  The regular expression is run case-insensitively. `validregex` should be used in preference over
+        `regex` (which can contain full regular expressions, not just a character sets), as `validregex` can easily
+        be inverted (eg `[^A-Z0-9]`) so passwords can be rewritten if they contain invalid characters. 
+    * `regex` - A full regular expression that the password must match. The regex is run case-insensitively.
 
 __Returns__
 
@@ -314,3 +318,4 @@ The tests can also be run in a web browser:
 
 * v0.1.0 - 2013-05-22: Initial version
 * v0.2.0 - 2013-07-16: `DomainNameRule` and `standardizeDomain()` added. 
+* v0.2.1 - 2013-07-17: `DomainNameRule.validregex` added

@@ -29,15 +29,25 @@
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
         // like Node.
+
+        var modulePath = '';
+        try {
+            require('crypto-js/md5');
+        } catch (e) {
+            // If we're in Appcelerator's environment, they don't support
+            // node_module loading, try to load it from our current path.
+            modulePath = '../node_modules/';
+        }
+
         module.exports = factory(
             require('./domainnamerule'),
             require('./utils'),
-            require('crypto-js/md5'),
-            require('crypto-js/sha1'),
-            require('crypto-js/sha512'),
-            require('crypto-js/sha3'),
-            require('crypto-js/ripemd160'),
-            require('crypto-js/enc-base64'));
+            require(modulePath + 'crypto-js/md5'),
+            require(modulePath + 'crypto-js/sha1'),
+            require(modulePath + 'crypto-js/sha512'),
+            require(modulePath + 'crypto-js/sha3'),
+            require(modulePath + 'crypto-js/ripemd160'),
+            require(modulePath + 'crypto-js/enc-base64'));
     } else {
         // Browser globals (root is window)
         root.SaltThePass = factory(
