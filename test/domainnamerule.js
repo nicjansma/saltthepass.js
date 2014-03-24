@@ -296,4 +296,5 @@
         test.equal('PASS', dnr.rewrite('pass?-PASS'));
 
         test.done();
-    };})(exports);
+    };
+})(exports);
