@@ -1,6 +1,11 @@
-deps
+.bowerrc
+.eslintrc
+.gitmodules
 dist
 test
 .npmignore
 .gitmodules
 Gruntfile.js
+bower.json
+.travis.yml
+karma.config.js

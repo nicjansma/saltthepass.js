@@ -2,3 +2,7 @@
 npm-debug.log
 .project
 .settings/
+/eslint.xml
+/test/*.tap
+/test/coverage
+/bower_components

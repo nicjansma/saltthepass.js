@@ -1,35 +1,44 @@
 {
-    "name": "saltthepass",
-    "description": "SaltThePass.com algorithm",
-    "main": "./src/saltthepass",
-    "author": "Nic Jansma",
-    "version": "0.2.2",
-    "repository" : {
-        "type" : "git",
-        "url" : "http://github.com/nicjansma/saltthepass.js.git"
-    },
-    "bugs" : {
-        "url" : "http://github.com/nicjansma/saltthepass.js/issues"
-    },
-    "licenses" : [
-        {
-            "type" : "MIT",
-            "url" : "http://github.com/nicjansma/saltthepass.js/raw/master/LICENSE"
-        }
-    ],
-    "devDependencies": {
-        "nodeunit": ">0.0.0",
-        "uglify-js": "1.2.x",
-        "jshint": ">0.0.0",
-        "grunt": "~0.4.0",
-        "grunt-contrib-jshint": ">0.0.0",
-        "grunt-contrib-nodeunit": ">0.0.0",
-        "grunt-contrib-uglify": ">0.0.0"
-    },
-    "scripts": {
-        "test": "grunt travis --verbose"
-    },
-    "dependencies": {
-        "crypto-js": ">= 3.1.2-1"
+  "name": "saltthepass",
+  "description": "SaltThePass.com algorithm",
+  "main": "./dist/saltthepass",
+  "author": "Nic Jansma",
+  "version": "0.2.2",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nicjansma/saltthepass.js.git"
+  },
+  "bugs": {
+    "url": "http://github.com/nicjansma/saltthepass.js/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/nicjansma/saltthepass.js/raw/master/LICENSE"
     }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-karma": "^0.10.1",
+    "grunt-mocha-test": "^0.12.7",
+    "gruntify-eslint": "^0.1.0",
+    "karma": "^0.12.31",
+    "karma-coverage": "^0.2.7",
+    "karma-expect": "^1.1.0",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-tap-reporter": "0.0.3",
+    "mocha": "^2.2.1",
+    "uglify-js": "1.2.x",
+    "expect.js": "^0.3.1"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "dependencies": {
+    "crypto-js": ">= 3.1.2-1"
+  }
 }

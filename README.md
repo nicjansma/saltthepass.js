@@ -1,8 +1,8 @@
 # saltthepass.js
 
-v0.2.1
+v0.2.2
 
-Copyright 2013 Nic Jansma
+Copyright 2015 Nic Jansma
 
 http://nicj.net
 
@@ -12,7 +12,7 @@ Licensed under the MIT license
 
 saltthepass.js is the algorithm that generates salted passwords for [SaltThePass.com](https://saltthepass.com/).
 
-saltthepass.js can be used to build your own app, website or program to generate the same salted password as
+saltthepass.js can be used to build your own app, website or program to generate the same salted passwords as
 [saltthepass.com](https://saltthepass.com) does.
 
 ## Download
@@ -28,7 +28,7 @@ __Production (without CryptoJS):__ [saltthepass.min.js](https://github.com/nicja
 __Production (with CryptoJS built-in):__ [saltthepass.withdeps.min.js](https://github.com/nicjansma/saltthepass.js/raw/master/dist/saltthepass.withdeps.min.js)
     ~ 8.5kb (minified / gzipped)
 
-saltthepass.js is also available as the [npm saltthepass module](https://npmjs.org/package/saltthepass). You can install
+saltthepass.js is also available as the [npm saltthepass module](https://npmjs.org/package/saltthepass). You can install it
 using Node Package Manager (npm):
 
     npm install saltthepass
@@ -40,9 +40,10 @@ Please see [SaltThePass.com](https://saltthepass.com/) for a description of how/
 ### Requirements
 
 saltthepass.js depends on the [CryptoJS library](http://code.google.com/p/crypto-js/).  SaltThePass is tested to work
-with CryptoJS v3.1.2, which is included in the `deps/crypto-js` folder.
+with CryptoJS v3.1.2, which can be installed via the bower `cryptojslib` package.
 
-You will need to load the following CryptoJS modules in this order prior to loading saltthepass.js:
+You will need to load the following CryptoJS modules in this order prior to using `saltthepass.js`, if not using one of
+the pre-built versions in `dist/` such as `saltthepass.withdeps.js` or `saltthepass.withdeps.min.js`:
 
 * crypto-js/core
 * crypto-js/x64-core
@@ -55,7 +56,11 @@ You will need to load the following CryptoJS modules in this order prior to load
 
 ### Browser - Development Versions
 
-To use un-minified versions of saltthepass.js in the browser, you need to load the files in this order:
+To use un-minified versions of saltthepass.js in the browser, you need to have the `cryptojslib` bower package:
+
+    bower install cryptojslib
+
+Then load the files in this order:
 
 ```html
 <script type="text/javascript" src="deps/crypto-js/core.js"></script>
@@ -69,6 +74,13 @@ To use un-minified versions of saltthepass.js in the browser, you need to load t
 <script type="text/javascript" src="src/util.js"></script>
 <script type="text/javascript" src="src/domainnamerule.js"></script>
 <script type="text/javascript" src="src/saltthepass.js"></script>
+```
+
+The file `dist/saltthepass.withdeps.js` is a single JavaScript file with all of the above components in the correct 
+order, so it can be used instead if desired:
+
+```html
+<script type="text/javascript" src="dist/saltthepass.withdeps.js"></script>
 ```
 
 ### Browser - Minified Versions
