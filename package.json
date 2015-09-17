@@ -11,12 +11,7 @@
   "bugs": {
     "url": "http://github.com/nicjansma/saltthepass.js/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/nicjansma/saltthepass.js/raw/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "devDependencies": {
     "expect.js": "^0.3.1",
     "grunt": "^0.4.5",
