@@ -1,4 +1,4 @@
-/*eslint-env node,browser,amd*/
+/* eslint-env node,browser,amd */
 //
 // SaltThePass - DomainNameRule
 //
@@ -9,7 +9,7 @@
 //
 // Licensed under the MIT license
 //
-(function (root, factory) {
+(function(root, factory) {
     "use strict";
 
     if (typeof define === "function" && define.amd) {
@@ -24,7 +24,7 @@
         // Browser globals (root is window)
         root.DomainNameRule = factory(root.SaltThePassUtils);
     }
-}(this, function (utils) {
+}(this, function(utils) {
     "use strict";
 
     //

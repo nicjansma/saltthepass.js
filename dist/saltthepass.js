@@ -1,4 +1,4 @@
-/*eslint-env node,browser,amd*/
+/* eslint-env node,browser,amd */
 //
 // SaltThePass - Utilities
 //
@@ -9,7 +9,7 @@
 //
 // Licensed under the MIT license
 //
-(function (root, factory) {
+(function(root, factory) {
     "use strict";
 
     if (typeof define === "function" && define.amd) {
@@ -24,7 +24,7 @@
         // Browser globals (root is window)
         root.SaltThePassUtils = factory();
     }
-}(this, function () {
+}(this, function() {
     "use strict";
 
     // Module definition
@@ -67,7 +67,7 @@
     return Utils;
 }));
 
-/*eslint-env node,browser,amd*/
+/* eslint-env node,browser,amd */
 //
 // SaltThePass - DomainNameRule
 //
@@ -78,7 +78,7 @@
 //
 // Licensed under the MIT license
 //
-(function (root, factory) {
+(function(root, factory) {
     "use strict";
 
     if (typeof define === "function" && define.amd) {
@@ -93,7 +93,7 @@
         // Browser globals (root is window)
         root.DomainNameRule = factory(root.SaltThePassUtils);
     }
-}(this, function (utils) {
+}(this, function(utils) {
     "use strict";
 
     //
@@ -433,7 +433,7 @@
         newPass = this.addRequiredChar(newPass);
         newPass = this.trimToMax(newPass);
 
-        // make sure we"re still valid
+        // make sure we're still valid
         if (!this.isValid(newPass)) {
             return;
         }
@@ -497,7 +497,7 @@
     return DomainNameRule;
 }));
 
-/*eslint-env node,browser,amd*/
+/* eslint-env node,browser,amd */
 //
 // SaltThePass
 //
@@ -508,7 +508,7 @@
 //
 // Licensed under the MIT license
 //
-(function (root, factory) {
+(function(root, factory) {
     "use strict";
 
     if (typeof define === "function" && define.amd) {
@@ -534,7 +534,7 @@
         try {
             require("crypto-js/md5");
         } catch (e) {
-            // If we"re in Appcelerator's environment, they don't support
+            // If we're in Appcelerator's environment, they don't support
             // node_module loading, try to load it from our current path.
             modulePath = "../node_modules/";
         }
@@ -560,7 +560,7 @@
             root.CryptoJS.RIPEMD160,
             root.CryptoJS.enc.Base64);
     }
-}(this, function (DomainNameRule, utils, md5Fn, sha1Fn, sha512Fn, sha3Fn, ripemd160Fn, base64Fn) {
+}(this, function(DomainNameRule, utils, md5Fn, sha1Fn, sha512Fn, sha3Fn, ripemd160Fn, base64Fn) {
     "use strict";
 
     // Module definition
@@ -687,7 +687,7 @@
         // NOTE: For base64, we use the base64url variation of RFC 4648 , which replaces the
         // last two characters of plus "+" and forward-slash "/" with minus "-" and underscore "_" to
         // produce Salted Passwords that are more likely to pass the password requirements of sites that
-        // limit the characters that can be used in a password.  CryptoJS's Base64 doesn"t do this, so we
+        // limit the characters that can be used in a password.  CryptoJS's Base64 doesn't do this, so we
         // patch the base64 output here.
         //
         base64 = base64.replace(/\+/g, "-");

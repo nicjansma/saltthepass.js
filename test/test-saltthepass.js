@@ -1,5 +1,5 @@
-/*eslint-env node,mocha*/
-/*global window*/
+/* eslint-env node,mocha */
+/* global window */
 (function(root) {
     "use strict";
 

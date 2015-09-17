@@ -1,4 +1,4 @@
-/*eslint-env node,browser,amd*/
+/* eslint-env node,browser,amd */
 //
 // SaltThePass
 //
@@ -9,7 +9,7 @@
 //
 // Licensed under the MIT license
 //
-(function (root, factory) {
+(function(root, factory) {
     "use strict";
 
     if (typeof define === "function" && define.amd) {
@@ -61,7 +61,7 @@
             root.CryptoJS.RIPEMD160,
             root.CryptoJS.enc.Base64);
     }
-}(this, function (DomainNameRule, utils, md5Fn, sha1Fn, sha512Fn, sha3Fn, ripemd160Fn, base64Fn) {
+}(this, function(DomainNameRule, utils, md5Fn, sha1Fn, sha512Fn, sha3Fn, ripemd160Fn, base64Fn) {
     "use strict";
 
     // Module definition
