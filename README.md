@@ -76,7 +76,7 @@ Then load the files in this order:
 <script type="text/javascript" src="src/saltthepass.js"></script>
 ```
 
-The file `dist/saltthepass.withdeps.js` is a single JavaScript file with all of the above components in the correct 
+The file `dist/saltthepass.withdeps.js` is a single JavaScript file with all of the above components in the correct
 order, so it can be used instead if desired:
 
 ```html
@@ -129,7 +129,7 @@ Next, you can get a list of available hashes:
 var hashes = saltthepass.getHashes();
 ```
 
-This will be a list of strings, such as `md5`, `sha3`, etc.  You can get additional data about the hashes via 
+This will be a list of strings, such as `md5`, `sha3`, etc.  You can get additional data about the hashes via
 [`saltthepass.getHashFn()`](#getHashFn) and [`saltthepass.getHashLength()`](#getHashLength).
 
 To generate a salted password, you simply call [`saltthepass.saltthepass()`](#saltthepass) with the master password,
@@ -166,8 +166,7 @@ if (dnr.matches('foo.com')) {
 
 ## Documentation
 
-<a name="getHashes" />
-### saltthepass.getHashes()
+### saltthepass.getHashes() <a name="getHashes" />
 
 Gets a list of supported hashes.
 
@@ -177,8 +176,7 @@ A list of supported hash names.
 
 For example: `['md5', 'sha1', 'sha2', 'sha3', 'ripemd160']`
 
-<a name="getHashFn" />
-### saltthepass.getHashFn(hashName)
+### saltthepass.getHashFn(hashName) <a name="getHashFn" />
 
 Gets the [CryptoJS](http://code.google.com/p/crypto-js/) hash function for a specific hash.
 
@@ -190,8 +188,7 @@ __Returns__
 
 Hashing function.
 
-<a name="getHashLength" />
-### saltthepass.getHashLength(hashName)
+### saltthepass.getHashLength(hashName) <a name="getHashLength" />
 
 Gets the number of Base64 characters the hash function will return.
 
@@ -203,8 +200,7 @@ __Returns__
 
 Number of characters of the hash.
 
-<a name="hash" />
-### saltthepass.hash(hashName, phrase)
+### saltthepass.hash(hashName, phrase) <a name="hash" />
 
 Hashes the specified phrase.
 
@@ -217,8 +213,7 @@ __Returns__
 
 The Base64 encoded hashed phrase.
 
-<a name="saltthepass" />
-### saltthepass.saltthepass(hashName, masterPassword, domainName, domainPhrase)
+### saltthepass.saltthepass(hashName, masterPassword, domainName, domainPhrase) <a name="saltthepass" />
 
 Generates a salted password identical to saltthepass.com.
 
@@ -233,8 +228,7 @@ __Returns__
 
 The salted password.
 
-<a name="standardizeDomain" />
-### saltthepass.standardizeDomain(url)
+### saltthepass.standardizeDomain(url) <a name="standardizeDomain" />
 
 Standardizes a domain name for use with <a href="#DomainNameRule">DomainNameRules</a>.
 
@@ -248,8 +242,7 @@ __Returns__
 
 Standardized domain for use in <a href="#DomainNameRule">DomainNameRules</a>.
 
-<a name="DomainNameRule" />
-### saltthepass.DomainNameRule(data)
+### saltthepass.DomainNameRule(data) <a name="DomainNameRule" />
 
 Creates a Domain Name Rule.
 
@@ -266,15 +259,14 @@ __Arguments__
     * `validregex` - A simplified regular expression that would fit in a character set (eg. `A-Z0-9`, which would fit in
         `[A-Z0-9]`).  The regular expression is run case-sensitive. `validregex` should be used in preference over
         `regex` (which can contain full regular expressions, not just a character sets), as `validregex` can easily
-        be inverted (eg `[^A-Z0-9]`) so passwords can be rewritten if they contain invalid characters. 
+        be inverted (eg `[^A-Z0-9]`) so passwords can be rewritten if they contain invalid characters.
     * `regex` - A full regular expression that the password must match. The regex is run case-sensitive.
 
 __Returns__
 
 A DomainNameRule class.
 
-<a name="DomainNameRule.matches" />
-### DomainNameRule.matches(domain)
+### DomainNameRule.matches(domain) <a id="DomainNameRule.matches" />
 
 Determines whether or not the Domain Name Rule matches the specified domain.
 
@@ -286,8 +278,7 @@ __Returns__
 
 True if the Domain Name Rule matches the domain.
 
-<a name="DomainNameRule.isValid" />
-### DomainNameRule.isValid(password)
+### DomainNameRule.isValid(password) <a name="DomainNameRule.isValid" />
 
 Determines whether or not the Domain Name Rule would pass for the specified password.
 
@@ -299,8 +290,7 @@ __Returns__
 
 True if the Domain Name Rule would pass for the specified password.
 
-<a name="DomainNameRule.rewrite" />
-### DomainNameRule.rewrite(password)
+### DomainNameRule.rewrite(password) <a name="DomainNameRule.rewrite" />
 
 Attempts to rewrite the password (in a stable and consistent manner) to match the Domain Name Rule.
 
@@ -329,6 +319,6 @@ The tests can also be run in a web browser:
 ## Version History
 
 * v0.1.0 - 2013-05-22: Initial version
-* v0.2.0 - 2013-07-16: `DomainNameRule` and `standardizeDomain()` added. 
+* v0.2.0 - 2013-07-16: `DomainNameRule` and `standardizeDomain()` added.
 * v0.2.1 - 2013-07-17: `DomainNameRule.validregex` added
 * v0.2.2 - 2013-07-17: `DomainNameRule.validregex` and `DomainNameRule.regex` are case-sensitive now
