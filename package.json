@@ -3,13 +3,16 @@
   "description": "SaltThePass.com algorithm",
   "main": "./dist/saltthepass",
   "author": "Nic Jansma",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "http://github.com/nicjansma/saltthepass.js.git"
   },
   "bugs": {
     "url": "http://github.com/nicjansma/saltthepass.js/issues"
+  },
+  "bin": {
+    "saltthepass": "cli.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -35,6 +38,7 @@
     "test": "grunt travis --verbose"
   },
   "dependencies": {
-    "crypto-js": ">=3.1.9-1"
+    "crypto-js": ">=3.1.9-1",
+    "yargs": "^15.1.0"
   }
 }

@@ -1,8 +1,8 @@
 # saltthepass.js
 
-v0.2.2
+v0.3.0
 
-Copyright 2017 Nic Jansma
+Copyright 2020 Nic Jansma
 
 http://nicj.net
 
@@ -42,7 +42,9 @@ Please see [SaltThePass.com](https://saltthepass.com/) for a description of how/
 saltthepass.js depends on the [CryptoJS library](http://code.google.com/p/crypto-js/).  SaltThePass is tested to work
 with CryptoJS v3.1.2, which can be installed via the bower `cryptojslib` package.
 
-You will need to load the following CryptoJS modules in this order prior to using `saltthepass.js`, if not using one of
+When using the NPM package, CryptoJS is a package dependency.
+
+If using this in the browser, you will need to load the following CryptoJS modules in this order prior to using `saltthepass.js`, if not using one of
 the pre-built versions in `dist/` such as `saltthepass.withdeps.js` or `saltthepass.withdeps.min.js`:
 
 * crypto-js/core
@@ -105,6 +107,27 @@ Then `require()` it:
 ```js
 var saltthepass = require('saltthepass');
 var saltedPassword = saltthepass.saltthepass('md5', 'mypassword', 'mydomain', 'myphrase');
+```
+
+### Command Line
+
+You can install `saltthepass` as a command-line program via NPM:
+
+    npm install -g saltthepass
+
+```shell
+> saltthepass
+Options:
+  --hash, -h      Name of the hash, e.g. md5
+          [choices: "md5", "sha1", "sha2", "sha3", "ripemd160"] [default: "md5"]
+  --password, -p  Master Password                                     [required]
+  --domain, -d    Domain Name                                         [required]
+  --phrase, -r    Domain phrase
+  --help          Show help                                            [boolean]
+  --version       Show version number                                  [boolean]
+
+> saltthepass -h sha3 -p password -d domain -r phrase
+_PwlhSzK8_Q1M73_woHVXi-f_-hQJ_ht8_SCx6KvOdKiMSaqmV4Dhagf-toiMIqsvW04gJkGWU9eGAuyDQtvzw
 ```
 
 ### Examples
@@ -322,3 +345,4 @@ The tests can also be run in a web browser:
 * v0.2.0 - 2013-07-16: `DomainNameRule` and `standardizeDomain()` added.
 * v0.2.1 - 2013-07-17: `DomainNameRule.validregex` added
 * v0.2.2 - 2013-07-17: `DomainNameRule.validregex` and `DomainNameRule.regex` are case-sensitive now
+* v0.3.0 - 2020-02-12: CLI available
