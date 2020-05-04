@@ -2,6 +2,12 @@
 module.exports = function(grunt) {
     "use strict";
 
+    var SOURCE_FILES = [
+        "Gruntfile.js",
+        "src/**/*.js",
+        "test/*.js"
+    ];
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
@@ -54,11 +60,7 @@ module.exports = function(grunt) {
         },
         eslint: {
             console: {
-                src: [
-                    "Gruntfile.js",
-                    "src/**/*.js",
-                    "test/*.js"
-                ]
+                src: SOURCE_FILES
             },
             build: {
                 options: {
@@ -66,11 +68,7 @@ module.exports = function(grunt) {
                     format: "jslint-xml",
                     silent: true
                 },
-                src: [
-                    "Gruntfile.js",
-                    "src/**/*.js",
-                    "test/*.js"
-                ]
+                src: SOURCE_FILES
             }
         },
         mochaTest: {
@@ -134,5 +132,5 @@ module.exports = function(grunt) {
     //
     grunt.registerTask("default", ["lint", "build"]);
     grunt.registerTask("travis", ["clean", "lint", "build", "test"]);
-    grunt.registerTask("all", ["clean", "lint:console", "build", "test"]);
+    grunt.registerTask("all", ["clean", "lint:console", "lint:build", "build", "test"]);
 };
